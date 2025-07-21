@@ -17,8 +17,7 @@ a,
   @apply bg-clip-text text-transparent;
   @apply bg-gradient-to-br from-gray-300 via-gray-500 to-gray-600;
 }
-
 .gradient-text2 {
   @apply bg-clip-text text-transparent;
-  @apply bg-gradient-to-br from-indigo-500 via-fuchsia-500 to-pink-500;
+  @apply bg-gradient-to-br from-sky-300 via-indigo-500 to-cyan-400;
 }
