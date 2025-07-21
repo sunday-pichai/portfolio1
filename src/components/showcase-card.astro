@@ -12,24 +12,81 @@ const widths = [450, 800];
 const sizes = "(min-width: 1024px) 33vw, (min-width: 768px) 50vw, 100vw";
 ---
 
-<a class="group aspect-video hover:!text-default" href={site.data.url}>
-  <figure class="relative h-full w-full overflow-hidden">
+<a
+  class="group aspect-video hover:!text-default relative block overflow-hidden rounded-2xl border border-default bg-offset shadow-lg transition-all duration-500 hover:shadow-2xl hover:scale-105"
+  href={site.data.url}
+  aria-label={`View ${site.data.title} project`}
+>
+  <figure class="relative h-full w-full overflow-hidden rounded-lg">
     <Image
-      class="h-full w-full bg-cover object-cover transition-all duration-300 group-hover:scale-110 group-hover:opacity-20 group-focus:scale-110 group-focus:opacity-20"
+      class="h-full w-full bg-cover object-cover transition-all duration-500 group-hover:scale-110 group-hover:opacity-30 group-focus:scale-110 group-focus:opacity-30"
       src={site.data.image}
       widths={widths}
       sizes={sizes}
-      alt={`A screenshot of ${site.data.url}`}
+      alt={`A screenshot of ${site.data.title}`}
     />
-    <figcaption class="absolute inset-0">
+    <figcaption class="absolute inset-0 flex items-center justify-center">
       <div
-        class="flex h-full flex-col items-center justify-center gap-2 opacity-0 transition-all duration-300 group-hover:opacity-100 group-focus:opacity-100"
+        class="flex h-full flex-col items-center justify-center gap-2 opacity-0 transition-all duration-500 group-hover:opacity-100 group-focus:opacity-100"
       >
-        <h3 class="text-center font-extrabold uppercase text-xl">
+        <h3 class="text-center font-extrabold uppercase text-xl font-poppins">
           {site.data.title}
         </h3>
-        <p class="border border-current px-4 py-2">{site.data.url}</p>
+        <p class="relative border border-current px-4 py-2 font-poppins">
+          {site.data.url}
+          <span
+            class="absolute bottom-0 left-0 h-0.5 w-0 bg-primary transition-all duration-300 group-hover:w-full"
+          ></span>
+        </p>
       </div>
     </figcaption>
   </figure>
+  <!-- Animated background gradient -->
+  <div
+    class="absolute inset-0 bg-gradient-to-r from-offset to-offset via-primary/20 group-hover:from-primary/30 group-hover:to-secondary/30 transition-all duration-500"
+  ></div>
 </a>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap');
+
+  .font-poppins {
+    font-family: 'Poppins', sans-serif;
+  }
+
+  /* Ensure the gradient layer is behind the content */
+  .bg-gradient-to-r {
+    z-index: -1;
+  }
+
+  /* Mobile optimizations */
+  @media (max-width: 768px) {
+    .group {
+      padding: 0.5rem;
+    }
+
+    .group h3 {
+      font-size: 1.1rem;
+    }
+
+    .group p {
+      font-size: 0.9rem;
+      padding: 0.3rem 1rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .group {
+      padding: 0.3rem;
+    }
+
+    .group h3 {
+      font-size: 1rem;
+    }
+
+    .group p {
+      font-size: 0.8rem;
+      padding: 0.2rem 0.8rem;
+    }
+  }
+</style>
