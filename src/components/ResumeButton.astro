@@ -23,11 +23,27 @@ import { Icon } from "astro-icon/components";
     border-color: #22c55e !important; /* green-500 with high specificity */
     color: #1f2937 !important; /* gray-800 with high specificity */
   }
+  
+  /* Mobile optimizations */
   @media (max-width: 640px) {
     a {
-      width: 100%;
+      /* Remove full width and make it appropriately sized */
+      width: auto;
+      max-width: 240px; /* A bit bigger than before */
+      padding: 0.8rem 2.5rem; /* Slightly more padding */
+      font-size: 1rem; /* Keep original font size */
       text-align: center;
       justify-content: center;
+      margin: 0 auto; /* Center the button if it's in a flex container */
+    }
+  }
+  
+  /* Very small screens */
+  @media (max-width: 480px) {
+    a {
+      max-width: 200px; /* Bigger than before */
+      padding: 0.75rem 2rem; /* More padding */
+      font-size: 0.95rem; /* Less reduction in font size */
     }
   }
 </style>

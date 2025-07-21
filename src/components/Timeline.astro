@@ -6,7 +6,7 @@ const timelineItems: Array<TimelineItem> = [
   {
     title: "B.E. in Computer Science",
     date: "2022 - 2026",
-    description: "Pursuing a Bachelor’s degree at JCT College of Engineering and Technology, Anna University. Focused on software development and machine learning.",
+    description: "Pursuing a Bachelor's degree at JCT College of Engineering and Technology, Anna University. Focused on software development and machine learning.",
   },
   {
     title: "Kerala Sasthrolsavam IT Fair",
@@ -22,19 +22,19 @@ const timelineItems: Array<TimelineItem> = [
   </Fragment>
   <div class="relative max-w-4xl mx-auto">
     <!-- Vertical line for timeline -->
-    <div class="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-timeline to-timeline-end" style="background: linear-gradient(to bottom, #4b5bd7, #14b8a6);"></div>
+    <div class="timeline-line absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-timeline to-timeline-end" style="background: linear-gradient(to bottom, #4b5bd7, #14b8a6);"></div>
     {timelineItems.map((item, index) => (
       <div
-        class={`relative flex items-center mb-12 ${index % 2 === 0 ? "flex-row" : "flex-row-reverse"}`}
+        class={`timeline-item relative flex items-center mb-12 ${index % 2 === 0 ? "flex-row" : "flex-row-reverse"}`}
       >
         <!-- Timeline dot -->
         <div
-          class="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-timeline-dot rounded-full border-2 border-background"
+          class="timeline-dot absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-timeline-dot rounded-full border-2 border-background z-10"
           style="background-color: #14b8a6;"
         ></div>
         <!-- Content card -->
         <div
-          class={`w-5/12 ${index % 2 === 0 ? "mr-8 text-right" : "ml-8 text-left"}`}
+          class={`timeline-content w-5/12 ${index % 2 === 0 ? "mr-8 text-right" : "ml-8 text-left"}`}
         >
           <div class="border border-timeline-border bg-timeline-bg p-6 rounded-lg shadow-lg">
             <h3 class="text-xl font-bold gradient-text2">{item.title}</h3>
@@ -48,26 +48,58 @@ const timelineItems: Array<TimelineItem> = [
 </ContentSection>
 
 <style>
-  @media (max-width: 640px) {
+  /* Mobile optimizations - maintain desktop layout but make it responsive */
+  @media (max-width: 768px) {
     .relative.max-w-4xl {
-      padding-left: 2rem;
+      padding: 0 1rem;
     }
-    .relative.flex {
-      flex-direction: column;
-      align-items: flex-start;
+    
+    .timeline-content {
+      width: 45% !important;
+      font-size: 0.9rem;
     }
-    .relative.flex .w-5\/12 {
-      width: 100%;
-      margin: 0;
-      text-align: left;
+    
+    .timeline-content.mr-8 {
+      margin-right: 1rem !important;
     }
-    .absolute.left-1\/2 {
-      left: 1rem;
-      transform: none;
+    
+    .timeline-content.ml-8 {
+      margin-left: 1rem !important;
     }
-    .absolute.left-1\/2, .absolute.left-1\/2 + div {
-      position: relative;
-      left: 0;
+    
+    .timeline-content .border {
+      padding: 1rem !important;
+    }
+    
+    .timeline-content h3 {
+      font-size: 1.1rem !important;
+    }
+    
+    .timeline-content p {
+      font-size: 0.85rem !important;
+    }
+  }
+  
+  /* Very small screens - still maintain timeline but more compact */
+  @media (max-width: 480px) {
+    .timeline-content {
+      width: 42% !important;
+    }
+    
+    .timeline-content .border {
+      padding: 0.8rem !important;
+    }
+    
+    .timeline-content h3 {
+      font-size: 1rem !important;
+    }
+    
+    .timeline-content p {
+      font-size: 0.8rem !important;
+    }
+    
+    .timeline-item {
+      margin-bottom: 2rem !important;
     }
   }
 </style>
