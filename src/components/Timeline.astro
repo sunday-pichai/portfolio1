@@ -1,0 +1,73 @@
+---
+import ContentSection from "~/components/content-section.astro";
+import type { TimelineItem } from "~/types";
+
+const timelineItems: Array<TimelineItem> = [
+  {
+    title: "B.E. in Computer Science",
+    date: "2022 - 2026",
+    description: "Pursuing a Bachelor’s degree at JCT College of Engineering and Technology, Anna University. Focused on software development and machine learning.",
+  },
+  {
+    title: "Kerala Sasthrolsavam IT Fair",
+    date: "2020",
+    description: "Secured first place in animation at the Palakkad District, recognized by the Government of Kerala.",
+  }
+];
+---
+
+<ContentSection title="Experience" id="timeline">
+  <Fragment slot="lead">
+    A journey through my <span class="text-timeline">education</span> and <span class="text-timeline">achievements</span>.
+  </Fragment>
+  <div class="relative max-w-4xl mx-auto">
+    <!-- Vertical line for timeline -->
+    <div class="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-timeline to-timeline-end" style="background: linear-gradient(to bottom, #4b5bd7, #14b8a6);"></div>
+    {timelineItems.map((item, index) => (
+      <div
+        class={`relative flex items-center mb-12 ${index % 2 === 0 ? "flex-row" : "flex-row-reverse"}`}
+      >
+        <!-- Timeline dot -->
+        <div
+          class="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-timeline-dot rounded-full border-2 border-background"
+          style="background-color: #14b8a6;"
+        ></div>
+        <!-- Content card -->
+        <div
+          class={`w-5/12 ${index % 2 === 0 ? "mr-8 text-right" : "ml-8 text-left"}`}
+        >
+          <div class="border border-timeline-border bg-timeline-bg p-6 rounded-lg shadow-lg">
+            <h3 class="text-xl font-bold gradient-text2">{item.title}</h3>
+            <p class="text-sm text-offset mb-2">{item.date}</p>
+            <p class="text-default">{item.description}</p>
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+</ContentSection>
+
+<style>
+  @media (max-width: 640px) {
+    .relative.max-w-4xl {
+      padding-left: 2rem;
+    }
+    .relative.flex {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+    .relative.flex .w-5\/12 {
+      width: 100%;
+      margin: 0;
+      text-align: left;
+    }
+    .absolute.left-1\/2 {
+      left: 1rem;
+      transform: none;
+    }
+    .absolute.left-1\/2, .absolute.left-1\/2 + div {
+      position: relative;
+      left: 0;
+    }
+  }
+</style>

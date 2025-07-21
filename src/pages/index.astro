@@ -7,12 +7,13 @@ import Header from "~/components/header.astro";
 import Intro from "~/components/intro.astro";
 import Showcase from "~/components/showcase.astro";
 import Splash from "~/components/splash.astro";
+import ResumeButton from "~/components/ResumeButton.astro";
+import Timeline from "~/components/Timeline.astro";
 import "~/styles/index.css";
 
 const { generator, site } = Astro;
 const image = new URL("computer.jpg", site);
-const description =
-  "Kamalesh R | Portfolio";
+const description = "Kamalesh R | Portfolio";
 ---
 
 <!doctype html>
@@ -40,9 +41,7 @@ const description =
       if (themeSaved) {
         document.documentElement.dataset.theme = themeSaved;
       } else {
-        const prefersDark = window.matchMedia(
-          "(prefers-color-scheme: dark)",
-        ).matches;
+        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
         document.documentElement.dataset.theme = prefersDark ? "dark" : "light";
       }
 
@@ -50,9 +49,7 @@ const description =
         .matchMedia("(prefers-color-scheme: dark)")
         .addEventListener("change", (event) => {
           if (!localStorage.getItem("theme")) {
-            document.documentElement.dataset.theme = event.matches
-              ? "dark"
-              : "light";
+            document.documentElement.dataset.theme = event.matches ? "dark" : "light";
           }
         });
     </script>
@@ -65,7 +62,11 @@ const description =
     <div class="space-y-24 px-8 py-32">
       <Features />
       <Compatibility />
+      <Timeline />
       <Showcase />
+      <div class="text-center mt-12">
+        <ResumeButton />
+      </div>
     </div>
     <Footer />
   </body>

@@ -20,3 +20,9 @@ export interface NavItem {
   title: string;
   url: string;
 }
+
+export interface TimelineItem {
+  title: string;
+  date: string;
+  description: string;
+}

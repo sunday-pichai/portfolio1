@@ -1,0 +1,33 @@
+---
+import { Icon } from "astro-icon/components";
+---
+
+<a
+  href="/RESUME.pdf"
+  download="Kamalesh_R_Resume.pdf"
+  class="relative inline-flex items-center px-6 py-3 bg-gradient-to-r from-pink-400/30 to-purple-500/30 backdrop-blur-md border-2 border-magenta-300/50 text-yellow font-medium rounded-lg shadow-lg hover:border-magenta-200 hover:shadow-magenta-500/20 transition-all duration-300 aria-label='Kamalesh R Resume'"
+  data-theme-aware
+>
+  <Icon name="mdi:download" class="mr-2" />
+  Resume
+</a>
+
+<style>
+  a {
+    background: rgba(255, 255, 255, 0.05);
+  }
+  a:hover {
+    transform: translateY(-2px);
+  }
+  [data-theme="light"] a[data-theme-aware] {
+    border-color: #22c55e !important; /* green-500 with high specificity */
+    color: #1f2937 !important; /* gray-800 with high specificity */
+  }
+  @media (max-width: 640px) {
+    a {
+      width: 100%;
+      text-align: center;
+      justify-content: center;
+    }
+  }
+</style>

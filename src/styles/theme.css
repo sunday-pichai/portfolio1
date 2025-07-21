@@ -7,6 +7,11 @@
   --color-background: theme("colors.white");
   --color-background-offset: theme("colors.gray.200");
   --color-border: theme("colors.gray.600" / 10%);
+  --color-timeline: theme("colors.indigo.600");
+  --color-timeline-end: theme("colors.teal.500");
+  --color-timeline-dot: theme("colors.teal.500");
+  --color-timeline-border: theme("colors.indigo.600" / 20%);
+  --color-timeline-bg: theme("colors.gray.100");
 }
 
 [data-theme="dark"] {
@@ -18,4 +23,9 @@
   --color-background: theme("colors.black");
   --color-background-offset: theme("colors.gray.700");
   --color-border: theme("colors.gray.100" / 10%);
+  --color-timeline: theme("colors.indigo.400");
+  --color-timeline-end: theme("colors.teal.300");
+  --color-timeline-dot: theme("colors.teal.300");
+  --color-timeline-border: theme("colors.indigo.400" / 20%);
+  --color-timeline-bg: theme("colors.gray.800");
 }
