@@ -17,9 +17,6 @@ const timelineItems: Array<TimelineItem> = [
 ---
 
 <ContentSection title="Experience" id="timeline">
-  <Fragment slot="lead">
-    A journey through my <span class="text-timeline">education</span> and <span class="text-timeline">achievements</span>.
-  </Fragment>
   <div class="relative max-w-4xl mx-auto">
     <!-- Vertical line for timeline -->
     <div class="timeline-line absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-timeline to-timeline-end" style="background: linear-gradient(to bottom, #4b5bd7, #14b8a6);"></div>
@@ -48,23 +45,36 @@ const timelineItems: Array<TimelineItem> = [
 </ContentSection>
 
 <style>
-  /* Mobile optimizations - maintain desktop layout but make it responsive */
+  /* Mobile optimizations - move timeline to left side */
   @media (max-width: 768px) {
     .relative.max-w-4xl {
       padding: 0 1rem;
     }
     
+    /* Move timeline line to left side on mobile */
+    .timeline-line {
+      left: 2rem !important;
+      transform: translateX(-50%) !important;
+    }
+    
+    /* Reset all timeline items to left-aligned layout */
+    .timeline-item {
+      flex-direction: row !important;
+    }
+    
+    /* Move timeline dots to left side - align with line center */
+    .timeline-dot {
+      left: 2rem !important;
+      transform: translateX(-50%) !important;
+    }
+    
+    /* Reset content positioning for mobile */
     .timeline-content {
-      width: 45% !important;
+      width: calc(100% - 4rem) !important;
+      margin-left: 4rem !important;
+      margin-right: 0 !important;
+      text-align: left !important;
       font-size: 0.9rem;
-    }
-    
-    .timeline-content.mr-8 {
-      margin-right: 1rem !important;
-    }
-    
-    .timeline-content.ml-8 {
-      margin-left: 1rem !important;
     }
     
     .timeline-content .border {
@@ -80,10 +90,21 @@ const timelineItems: Array<TimelineItem> = [
     }
   }
   
-  /* Very small screens - still maintain timeline but more compact */
+  /* Very small screens - maintain left layout but more compact */
   @media (max-width: 480px) {
+    .timeline-line {
+      left: 1.5rem !important;
+      transform: translateX(-50%) !important;
+    }
+    
+    .timeline-dot {
+      left: 1.5rem !important;
+      transform: translateX(-50%) !important;
+    }
+    
     .timeline-content {
-      width: 42% !important;
+      width: calc(100% - 3rem) !important;
+      margin-left: 3rem !important;
     }
     
     .timeline-content .border {
