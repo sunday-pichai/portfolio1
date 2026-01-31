@@ -26,6 +26,29 @@ const frameworks: Array<CompatibilityItem> = [
   }
 ];
 
+const machineLearning: Array<CompatibilityItem> = [
+  {
+    title: "Python",
+    icon: "ml/python",
+    url: "https://www.python.org/",
+  },
+  {
+    title: "NumPy",
+    icon: "ml/numpy",
+    url: "https://numpy.org/",
+  },
+  {
+    title: "pandas",
+    icon: "ml/pandas",
+    url: "https://pandas.pydata.org/",
+  },
+  {
+    title: "PyTorch",
+    icon: "ml/pytorch",
+    url: "https://pytorch.org/",
+  },
+];
+ 
 const platforms: Array<CompatibilityItem> = [
   {
     title: "Netlify",
@@ -89,4 +112,10 @@ const Backend: Array<CompatibilityItem> = [
     title="Platforms"
     url="https://docs.astro.build/guides/deploy/"
   />
+    <CompatibilityList
+    items={machineLearning}
+    title="Machine Learning"
+    url="https://docs.astro.build/guides/deploy/"
+  />
+  
 </ContentSection>
