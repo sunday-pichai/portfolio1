@@ -34,3 +34,9 @@ body {
 #scroll-root {
   will-change: transform;
 }
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
