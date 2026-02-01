@@ -21,3 +21,16 @@ a,
   @apply bg-clip-text text-transparent;
   @apply bg-gradient-to-br from-sky-300 via-indigo-500 to-cyan-400;
 }
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  overflow-y: scroll;
+}
+
+#scroll-root {
+  will-change: transform;
+}

@@ -17,7 +17,7 @@ const description = "Kamalesh R | Portfolio";
 ---
 
 <!doctype html>
-<html lang="en" class="h-full motion-safe:scroll-smooth" data-theme="dark">
+<html lang="en" class="h-full" data-theme="dark">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
@@ -34,31 +34,24 @@ const description = "Kamalesh R | Portfolio";
     <meta property="og:url" content={site} />
     <meta name="twitter:card" content="summary_large_image" />
 
-    <!-- initialize theme -->
+    <!-- theme init -->
     <script is:inline>
       const themeSaved = localStorage.getItem("theme");
-
       if (themeSaved) {
         document.documentElement.dataset.theme = themeSaved;
       } else {
-        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-        document.documentElement.dataset.theme = prefersDark ? "dark" : "light";
+        document.documentElement.dataset.theme =
+          window.matchMedia("(prefers-color-scheme: dark)").matches
+            ? "dark"
+            : "light";
       }
-
-      window
-        .matchMedia("(prefers-color-scheme: dark)")
-        .addEventListener("change", (event) => {
-          if (!localStorage.getItem("theme")) {
-            document.documentElement.dataset.theme = event.matches ? "dark" : "light";
-          }
-        });
     </script>
   </head>
-  <body
-    class="h-full overflow-x-hidden bg-default text-default text-base selection:bg-secondary selection:text-white"
-  >
+
+  <body class="overflow-x-hidden bg-default text-default text-base">
     <Header />
     <Splash />
+
     <div class="space-y-24 px-8 py-32">
       <Features />
       <Compatibility />
@@ -68,6 +61,44 @@ const description = "Kamalesh R | Portfolio";
         <ResumeButton />
       </div>
     </div>
+
     <Footer />
+
+    <script is:inline>
+      let current = window.scrollY;
+      let target = current;
+      let isTicking = false;
+
+      const ease = 0.08;
+      const wheelMultiplier = 1.1;
+
+      const clamp = (v, min, max) => Math.min(Math.max(v, min), max);
+
+      function onWheel(e) {
+        e.preventDefault();
+        target += e.deltaY * wheelMultiplier;
+
+        const maxScroll =
+          document.documentElement.scrollHeight - window.innerHeight;
+
+        target = clamp(target, 0, maxScroll);
+
+        if (!isTicking) requestAnimationFrame(update);
+        isTicking = true;
+      }
+
+      function update() {
+        current += (target - current) * ease;
+        window.scrollTo(0, current);
+
+        if (Math.abs(target - current) > 0.5) {
+          requestAnimationFrame(update);
+        } else {
+          isTicking = false;
+        }
+      }
+
+      window.addEventListener("wheel", onWheel, { passive: false });
+    </script>
   </body>
 </html>
