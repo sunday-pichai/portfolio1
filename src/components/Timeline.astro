@@ -17,110 +17,221 @@ const timelineItems: Array<TimelineItem> = [
 ---
 
 <ContentSection title="Education" id="timeline">
-  <div class="relative max-w-4xl mx-auto">
-    <!-- Vertical line for timeline -->
-    <div class="timeline-line absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gradient-to-b from-timeline to-timeline-end" style="background: linear-gradient(to bottom, #4b5bd7, #14b8a6);"></div>
-    {timelineItems.map((item, index) => (
-      <div
-        class={`timeline-item relative flex items-center mb-12 ${index % 2 === 0 ? "flex-row" : "flex-row-reverse"}`}
-      >
-        <!-- Timeline dot -->
-        <div
-          class="timeline-dot absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-timeline-dot rounded-full border-2 border-background z-10"
-          style="background-color: #14b8a6;"
-        ></div>
-        <!-- Content card -->
-        <div
-          class={`timeline-content w-5/12 ${index % 2 === 0 ? "mr-8 text-right" : "ml-8 text-left"}`}
-        >
-          <div class="border border-timeline-border bg-timeline-bg p-6 rounded-lg shadow-lg">
-            <h3 class="text-xl font-bold gradient-text2">{item.title}</h3>
-            <p class="text-sm text-offset mb-2">{item.date}</p>
-            <p class="text-default">{item.description}</p>
-          </div>
-        </div>
-      </div>
-    ))}
+  <div class="timeline-shell">
+    <span class="timeline-glow" aria-hidden="true"></span>
+    <span class="timeline-shimmer" aria-hidden="true"></span>
+    <ol class="timeline-list">
+      {timelineItems.map((item) => (
+        <li class="timeline-item">
+          <span class="timeline-node" aria-hidden="true"></span>
+          <article class="timeline-card">
+            <div class="timeline-meta">
+              <span class="timeline-date">{item.date}</span>
+            </div>
+            <h3 class="timeline-title gradient-text2">{item.title}</h3>
+            <p class="timeline-body text-default">{item.description}</p>
+          </article>
+        </li>
+      ))}
+    </ol>
   </div>
 </ContentSection>
 
 <style>
-  /* Mobile optimizations - move timeline to left side */
-  @media (max-width: 768px) {
-    .relative.max-w-4xl {
-      padding: 0 1rem;
+  .timeline-shell {
+    position: relative;
+    max-width: 56rem;
+    margin: 0 auto;
+    padding-left: 3rem;
+  }
+
+  .timeline-shell::before {
+    content: "";
+    position: absolute;
+    left: 1.25rem;
+    top: 0.5rem;
+    bottom: 0.5rem;
+    width: 2px;
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      var(--color-primary) 18%,
+      #6366f1 50%,
+      var(--color-primary) 82%,
+      transparent 100%
+    );
+    opacity: 0.9;
+  }
+
+  .timeline-glow {
+    content: "";
+    position: absolute;
+    left: 1.25rem;
+    top: 0.5rem;
+    bottom: 0.5rem;
+    width: 12px;
+    transform: translateX(-5px);
+    background: radial-gradient(
+      circle,
+      rgba(34, 211, 238, 0.45) 0%,
+      rgba(34, 211, 238, 0.1) 45%,
+      transparent 70%
+    );
+    filter: blur(6px);
+    opacity: 0.6;
+    pointer-events: none;
+  }
+
+  .timeline-shimmer {
+    position: absolute;
+    left: 1.25rem;
+    top: 0.5rem;
+    width: 6px;
+    height: 72px;
+    transform: translateX(-50%);
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0.75) 50%,
+      transparent 100%
+    );
+    filter: blur(0.5px);
+    mix-blend-mode: screen;
+    opacity: 0;
+    animation: railShimmer 3.4s ease-in-out infinite;
+    pointer-events: none;
+  }
+
+  .timeline-list {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  .timeline-item {
+    position: relative;
+  }
+
+  .timeline-node {
+    position: absolute;
+    left: 1.25rem;
+    top: 0.75rem;
+    width: 14px;
+    height: 14px;
+    transform: translateX(-50%);
+    border-radius: 9999px;
+    background: var(--color-background);
+    border: 2px solid var(--color-primary);
+    box-shadow: 0 0 0 6px rgba(34, 211, 238, 0.12),
+      0 0 18px rgba(34, 211, 238, 0.5),
+      0 0 30px rgba(99, 102, 241, 0.35);
+  }
+
+  .timeline-card {
+    position: relative;
+    border-radius: 18px;
+    border: 1px solid var(--color-border);
+    background: var(--color-background-offset);
+    padding: 1.5rem 1.75rem 1.6rem;
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
+    transition: transform 240ms ease, box-shadow 240ms ease;
+  }
+
+  .timeline-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      135deg,
+      rgba(34, 211, 238, 0.18),
+      rgba(99, 102, 241, 0.2)
+    );
+    opacity: 0;
+    transition: opacity 240ms ease;
+  }
+
+  .timeline-card::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      500px circle at 0% 0%,
+      rgba(34, 211, 238, 0.2),
+      transparent 45%
+    );
+    opacity: 0.85;
+  }
+
+  .timeline-card > * {
+    position: relative;
+    z-index: 1;
+  }
+
+  .timeline-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 26px 60px rgba(0, 0, 0, 0.28);
+  }
+
+  .timeline-card:hover::before {
+    opacity: 1;
+  }
+
+  .timeline-meta {
+    margin-bottom: 0.7rem;
+  }
+
+  .timeline-date {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 9999px;
+    border: 1px solid var(--color-border);
+    padding: 0.35rem 0.85rem;
+    font-size: 0.7rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--color-text-offset);
+    background: var(--color-background);
+  }
+
+  .timeline-title {
+    font-size: 1.35rem;
+    font-weight: 700;
+    margin-bottom: 0.35rem;
+  }
+
+  .timeline-body {
+    font-size: 1rem;
+  }
+
+  @keyframes railShimmer {
+    0% {
+      top: 0.5rem;
+      opacity: 0;
     }
-    
-    /* Move timeline line to left side on mobile */
-    .timeline-line {
-      left: 2rem !important;
-      transform: translateX(-50%) !important;
+    12% {
+      opacity: 0.85;
     }
-    
-    /* Reset all timeline items to left-aligned layout */
-    .timeline-item {
-      flex-direction: row !important;
+    70% {
+      opacity: 0.7;
     }
-    
-    /* Move timeline dots to left side - align with line center */
-    .timeline-dot {
-      left: 2rem !important;
-      transform: translateX(-50%) !important;
-    }
-    
-    /* Reset content positioning for mobile */
-    .timeline-content {
-      width: calc(100% - 4rem) !important;
-      margin-left: 4rem !important;
-      margin-right: 0 !important;
-      text-align: left !important;
-      font-size: 0.9rem;
-    }
-    
-    .timeline-content .border {
-      padding: 1rem !important;
-    }
-    
-    .timeline-content h3 {
-      font-size: 1.1rem !important;
-    }
-    
-    .timeline-content p {
-      font-size: 0.85rem !important;
+    100% {
+      top: calc(100% - 72px);
+      opacity: 0;
     }
   }
-  
-  /* Very small screens - maintain left layout but more compact */
-  @media (max-width: 480px) {
-    .timeline-line {
-      left: 1rem !important;
-      transform: translateX(-50%) !important;
+
+  @media (max-width: 640px) {
+    .timeline-shell {
+      padding-left: 2.25rem;
     }
-    
-    .timeline-dot {
-      left: 0rem !important;
-      transform: translateX(-50%) !important;
+
+    .timeline-node {
+      top: 0.6rem;
     }
-    
-    .timeline-content {
-      width: calc(100% - 3rem) !important;
-      margin-left: 3rem !important;
-    }
-    
-    .timeline-content .border {
-      padding: 0.8rem !important;
-    }
-    
-    .timeline-content h3 {
-      font-size: 1rem !important;
-    }
-    
-    .timeline-content p {
-      font-size: 0.8rem !important;
-    }
-    
-    .timeline-item {
-      margin-bottom: 2rem !important;
+
+    .timeline-card {
+      padding: 1.25rem 1.25rem 1.4rem;
     }
   }
 </style>
