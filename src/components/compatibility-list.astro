@@ -11,26 +11,54 @@ export interface Props {
 const { items, title, url } = Astro.props;
 ---
 
-<div class="w-full max-w-4xl space-y-2">
-  <div class="relative border border-default bg-offset px-6 pb-4 pt-8">
+<div class="w-full max-w-5xl space-y-3">
+  <!-- Header -->
+  <div class="relative">
     <h3
-      class="absolute right-4 top-0 -translate-y-1/2 rounded-full border border-current bg-default px-4 py-1 uppercase tracking-tight text-xs"
+      class="inline-block rounded-full border border-default bg-default px-4 py-1 text-xs font-semibold uppercase tracking-wide"
     >
       {title}
     </h3>
-    <ul class="grid grid-cols-2 gap-8 sm:grid-cols-3 md:grid-cols-4">
+  </div>
+
+  <!-- Grid -->
+  <div class="rounded-xl border border-default bg-offset p-6">
+    <ul
+      class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5"
+    >
       {
         items.map((item) => (
           <li>
-            <a class="flex flex-col items-center gap-2" href={item.url}>
-              <Icon class="size-12" name={item.icon} />
-              <span>{item.title}</span>
+            <a
+              href={item.url}
+              class="
+                group flex flex-col items-center justify-center gap-3
+                rounded-lg border border-transparent bg-default
+                p-4 text-center transition-all
+                hover:-translate-y-1 hover:border-default hover:shadow-md
+                focus:outline-none focus:ring-2 focus:ring-offset-2
+              "
+            >
+              <Icon
+                name={item.icon}
+                class="size-10 transition-transform group-hover:scale-110"
+              />
+              <span class="text-sm font-medium">
+                {item.title}
+              </span>
             </a>
           </li>
         ))
       }
     </ul>
   </div>
-  <p class="text-right text-sm">
-  </p>
+
+  <!-- Optional footer link -->
+  {url && (
+    <p class="text-right text-sm text-muted">
+      <a href={url} class="hover:underline">
+        View all →
+      </a>
+    </p>
+  )}
 </div>
