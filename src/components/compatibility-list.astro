@@ -5,60 +5,48 @@ import type { CompatibilityItem } from "~/types";
 export interface Props {
   items: Array<CompatibilityItem>;
   title: string;
-  url: string;
 }
 
-const { items, title, url } = Astro.props;
+const { items, title } = Astro.props;
 ---
 
-<div class="w-full max-w-5xl space-y-3">
-  <!-- Header -->
-  <div class="relative">
-    <h3
-      class="inline-block rounded-full border border-default bg-default px-4 py-1 text-xs font-semibold uppercase tracking-wide"
-    >
-      {title}
-    </h3>
-  </div>
+<div class="w-full max-w-5xl space-y-6">
+  <!-- Title -->
+  <h3 class="text-xl font-semibold tracking-tight">
+    {title}
+  </h3>
 
-  <!-- Grid -->
-  <div class="rounded-xl border border-default bg-offset p-6">
-    <ul
-      class="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5"
-    >
-      {
-        items.map((item) => (
-          <li>
-            <a
-              href={item.url}
-              class="
-                group flex flex-col items-center justify-center gap-3
-                rounded-lg border border-transparent bg-default
-                p-4 text-center transition-all
-                hover:-translate-y-1 hover:border-default hover:shadow-md
-                focus:outline-none focus:ring-2 focus:ring-offset-2
-              "
-            >
-              <Icon
-                name={item.icon}
-                class="size-10 transition-transform group-hover:scale-110"
-              />
-              <span class="text-sm font-medium">
-                {item.title}
-              </span>
-            </a>
-          </li>
-        ))
-      }
-    </ul>
-  </div>
-
-  <!-- Optional footer link -->
-  {url && (
-    <p class="text-right text-sm text-muted">
-      <a href={url} class="hover:underline">
-        View all →
-      </a>
-    </p>
-  )}
+  <!-- Render-style grid -->
+  <ul
+    class="
+      grid grid-cols-3 gap-4
+      sm:grid-cols-4
+      md:grid-cols-6
+    "
+  >
+    {
+      items.map((item) => (
+        <li>
+          <a
+            href={item.url}
+            class="
+              group aspect-square
+              flex items-center justify-center
+              rounded-lg
+              bg-purple-600
+              transition-all duration-200
+              hover:bg-purple-500
+              hover:scale-[1.04]
+              active:scale-[0.98]
+            "
+          >
+            <Icon
+              name={item.icon}
+              class="size-12 text-white transition-transform group-hover:scale-110"
+            />
+          </a>
+        </li>
+      ))
+    }
+  </ul>
 </div>
