@@ -6,13 +6,15 @@ const timelineItems: Array<TimelineItem> = [
   {
     title: "B.E. in Computer Science",
     date: "2022 - 2026",
-    description: "Pursuing a Bachelor's degree at JCT College of Engineering and Technology, Anna University. Focused on software development and machine learning.",
+    description:
+      "Pursuing a Bachelor's degree at JCT College of Engineering and Technology, Anna University. Focused on software development and machine learning.",
   },
   {
     title: "Kerala Sasthrolsavam IT Fair",
     date: "2020",
-    description: "Secured first place in animation at the Palakkad District, recognized by the Government of Kerala.",
-  }
+    description:
+      "Secured first place in animation at the Palakkad District, recognized by the Government of Kerala.",
+  },
 ];
 ---
 
@@ -20,14 +22,17 @@ const timelineItems: Array<TimelineItem> = [
   <div class="timeline-shell">
     <span class="timeline-glow" aria-hidden="true"></span>
     <span class="timeline-shimmer" aria-hidden="true"></span>
+
     <ol class="timeline-list">
       {timelineItems.map((item) => (
         <li class="timeline-item">
           <span class="timeline-node" aria-hidden="true"></span>
+
           <article class="timeline-card">
             <div class="timeline-meta">
               <span class="timeline-date">{item.date}</span>
             </div>
+
             <h3 class="timeline-title gradient-text2">{item.title}</h3>
             <p class="timeline-body text-default">{item.description}</p>
           </article>
@@ -64,7 +69,6 @@ const timelineItems: Array<TimelineItem> = [
   }
 
   .timeline-glow {
-    content: "";
     position: absolute;
     left: 1.25rem;
     top: 0.5rem;
@@ -122,45 +126,23 @@ const timelineItems: Array<TimelineItem> = [
     border-radius: 9999px;
     background: var(--color-background);
     border: 2px solid var(--color-primary);
-    box-shadow: 0 0 0 6px rgba(34, 211, 238, 0.12),
+    box-shadow:
+      0 0 0 6px rgba(34, 211, 238, 0.12),
       0 0 18px rgba(34, 211, 238, 0.5),
       0 0 30px rgba(99, 102, 241, 0.35);
   }
 
+  /* === CLEAN CARD (NO BLUE GRADIENTS) === */
   .timeline-card {
     position: relative;
     border-radius: 18px;
     border: 1px solid var(--color-border);
     background: var(--color-background-offset);
     padding: 1.5rem 1.75rem 1.6rem;
-    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.2);
-    overflow: hidden;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.04),
+      0 18px 50px rgba(0, 0, 0, 0.2);
     transition: transform 240ms ease, box-shadow 240ms ease;
-  }
-
-  .timeline-card::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      135deg,
-      rgba(34, 211, 238, 0.18),
-      rgba(99, 102, 241, 0.2)
-    );
-    opacity: 0;
-    transition: opacity 240ms ease;
-  }
-
-  .timeline-card::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: radial-gradient(
-      500px circle at 0% 0%,
-      rgba(34, 211, 238, 0.2),
-      transparent 45%
-    );
-    opacity: 0.85;
   }
 
   .timeline-card > * {
@@ -170,11 +152,9 @@ const timelineItems: Array<TimelineItem> = [
 
   .timeline-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 26px 60px rgba(0, 0, 0, 0.28);
-  }
-
-  .timeline-card:hover::before {
-    opacity: 1;
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.06),
+      0 26px 60px rgba(0, 0, 0, 0.28);
   }
 
   .timeline-meta {
