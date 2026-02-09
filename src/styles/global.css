@@ -2,20 +2,19 @@
 a,
 .btn {
   @apply transition-colors duration-200;
-  @apply hover:text-[color:var(--color-primary)];
+  @apply hover:text-[#A100FE];
   @apply font-medium;
   @apply focus:outline-none
          focus:ring-4
-         focus:ring-[color:var(--color-primary)]
+         focus:ring-[#A100FE]
          focus:ring-offset-2
          focus:ring-offset-transparent;
 }
 
-/* Solid, THICK purple accents */
 .gradient-text,
 .gradient-text1,
 .gradient-text2 {
-  @apply text-[color:var(--color-primary)];
+  @apply text-[#A100FE];
   @apply font-semibold;
 }
 
