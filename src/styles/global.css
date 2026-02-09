@@ -20,13 +20,9 @@ a,
 
 .gradient-text3 {
   @apply bg-clip-text text-transparent;
-  background-image: linear-gradient(
-    180deg,
-    #1a1a1a,
-    #121212,
-    #0b0b0b
-  );
+  @apply bg-gradient-to-br from-gray-300 via-gray-400 to-gray-500;
 }
+
 
 html,
 body {
