@@ -10,19 +10,11 @@ a,
          focus:ring-offset-transparent;
 }
 
-.gradient-text {
-  @apply bg-clip-text text-transparent;
-  @apply bg-gradient-to-br from-violet-400 via-purple-500 to-indigo-500;
-}
-
-.gradient-text1 {
-  @apply bg-clip-text text-transparent;
-  @apply bg-gradient-to-br from-purple-500 via-violet-600 to-indigo-600;
-}
-
+/* Solid text accents – NO gradients */
+.gradient-text,
+.gradient-text1,
 .gradient-text2 {
-  @apply bg-clip-text text-transparent;
-  @apply bg-gradient-to-br from-fuchsia-400 via-violet-500 to-purple-600;
+  @apply text-[color:var(--color-primary)];
 }
 
 html,
