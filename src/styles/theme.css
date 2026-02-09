@@ -1,29 +1,31 @@
 [data-theme="light"] {
-  --color-primary: #22D3EE; /* Cyan for buttons and highlights */
-  --color-secondary: #64748B; /* Gray for secondary elements */
-  --color-text: #121212; /* Dark gray for text */
-  --color-text-offset: #64748B; /* Gray for offset text */
-  --color-background: #F4F4F4; /* Light gray for background */
-  --color-background-offset: #E5E7EB; /* Lighter gray for offset backgrounds */
-  --color-border: rgba(99, 102, 105, 0.1); /* Subtle border color */
-  --color-timeline: #22D3EE; /* Cyan for timeline start */
-  --color-timeline-end: #00BFFF; /* Deep sky blue for timeline end */
-  --color-timeline-dot: #FF6B6B; /* Red for timeline dots */
-  --color-timeline-border: rgba(34, 211, 238, 0.2); /* Cyan with 20% opacity for timeline border */
-  --color-timeline-bg: #E5E7EB; /* Light gray for timeline background */
+  --color-primary: #6D28D9; /* Deep enterprise purple */
+  --color-secondary: #6B7280; /* Neutral gray */
+  --color-text: #111827; /* Near-black text */
+  --color-text-offset: #6B7280;
+  --color-background: #F8F7FB; /* Light lavender-gray */
+  --color-background-offset: #EDE9FE;
+  --color-border: rgba(109, 40, 217, 0.12);
+
+  --color-timeline: #6D28D9;
+  --color-timeline-end: #8B5CF6;
+  --color-timeline-dot: #A78BFA;
+  --color-timeline-border: rgba(109, 40, 217, 0.25);
+  --color-timeline-bg: #F1EEFC;
 }
 
 [data-theme="dark"] {
-  --color-primary: #22D3EE; /* Cyan for buttons and highlights */
-  --color-secondary: #64748B; /* Gray for secondary elements */
-  --color-text: #FFFFFF; /* White for text */
-  --color-text-offset: #D1D5DB; /* Light gray for offset text */
-  --color-background: #121212; /* Deep black for background */
-  --color-background-offset: #1F1F1F; /* Darker black for offset backgrounds */
-  --color-border: rgba(255, 255, 255, 0.1); /* Subtle white border */
-  --color-timeline: #22D3EE; /* Cyan for timeline start */
-  --color-timeline-end: #00BFFF; /* Deep sky blue for timeline end */
-  --color-timeline-dot: #FF6B6B; /* Red for timeline dots */
-  --color-timeline-border: rgba(34, 211, 238, 0.2); /* Cyan with 20% opacity for timeline border */
-  --color-timeline-bg: #1F1F1F; /* Darker black for timeline background */
+  --color-primary: #8B5CF6; /* Render-style purple */
+  --color-secondary: #9CA3AF;
+  --color-text: #F9FAFB;
+  --color-text-offset: #D1D5DB;
+  --color-background: #0B0A12; /* Purple-black */
+  --color-background-offset: #151326;
+  --color-border: rgba(139, 92, 246, 0.18);
+
+  --color-timeline: #8B5CF6;
+  --color-timeline-end: #A78BFA;
+  --color-timeline-dot: #C4B5FD;
+  --color-timeline-border: rgba(139, 92, 246, 0.3);
+  --color-timeline-bg: #151326;
 }
