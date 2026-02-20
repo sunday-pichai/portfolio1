@@ -2,7 +2,15 @@
 import ContentSection from "~/components/content-section.astro";
 import type { TimelineItem } from "~/types";
 
-const timelineItems: Array<TimelineItem> = [
+const experienceItems: Array<TimelineItem> = [
+  {
+    title: "Backend Intern",
+    date: "Feb 2026 - Present",
+    description: "Backend intern at Blueleaf Technologies, Calicut. Working with Python and Django REST Framework to design REST APIs, handle data models, permissions, and core backend logic for products.",
+  },
+];
+
+const educationItems: Array<TimelineItem> = [
   {
     title: "B.E. in Computer Science",
     date: "2022 - 2026",
@@ -18,31 +26,63 @@ const timelineItems: Array<TimelineItem> = [
 ];
 ---
 
-<ContentSection title="Education" id="timeline">
-  <div class="timeline-shell">
-    <span class="timeline-glow" aria-hidden="true"></span>
-    <span class="timeline-shimmer" aria-hidden="true"></span>
+<div class="timeline-sections">
+  <ContentSection title="Experience" id="experience">
+    <div class="timeline-shell">
+      <span class="timeline-glow" aria-hidden="true"></span>
+      <span class="timeline-shimmer" aria-hidden="true"></span>
 
-    <ol class="timeline-list">
-      {timelineItems.map((item) => (
-        <li class="timeline-item">
-          <span class="timeline-node" aria-hidden="true"></span>
+      <ol class="timeline-list">
+        {experienceItems.map((item) => (
+          <li class="timeline-item">
+            <span class="timeline-node" aria-hidden="true"></span>
 
-          <article class="timeline-card">
-            <div class="timeline-meta">
-              <span class="timeline-date">{item.date}</span>
-            </div>
+            <article class="timeline-card">
+              <div class="timeline-meta">
+                <span class="timeline-date">{item.date}</span>
+              </div>
 
-            <h3 class="timeline-title gradient-text2">{item.title}</h3>
-            <p class="timeline-body text-default">{item.description}</p>
-          </article>
-        </li>
-      ))}
-    </ol>
-  </div>
-</ContentSection>
+              <h3 class="timeline-title gradient-text2">{item.title}</h3>
+              <p class="timeline-body text-default">{item.description}</p>
+            </article>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </ContentSection>
+
+  <ContentSection title="Education" id="timeline">
+    <div class="timeline-shell">
+      <span class="timeline-glow" aria-hidden="true"></span>
+      <span class="timeline-shimmer" aria-hidden="true"></span>
+
+      <ol class="timeline-list">
+        {educationItems.map((item) => (
+          <li class="timeline-item">
+            <span class="timeline-node" aria-hidden="true"></span>
+
+            <article class="timeline-card">
+              <div class="timeline-meta">
+                <span class="timeline-date">{item.date}</span>
+              </div>
+
+              <h3 class="timeline-title gradient-text2">{item.title}</h3>
+              <p class="timeline-body text-default">{item.description}</p>
+            </article>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </ContentSection>
+</div>
 
 <style>
+  .timeline-sections {
+    display: flex;
+    flex-direction: column;
+    gap: 6rem;
+  }
+
   .timeline-shell {
     position: relative;
     max-width: 56rem;
