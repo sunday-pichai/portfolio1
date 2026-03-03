@@ -74,14 +74,14 @@ const platforms: Array<CompatibilityItem> = [
 
 const Backend: Array<CompatibilityItem> = [
   {
-    title: "Node Js",
-    icon: "platforms/nodejs",
-    url: "https://nodejs.org/",
-  },
-  {
     title: "Django",
     icon: "platforms/django",
     url: "https://www.djangoproject.com/",
+  },
+  {
+    title: "Node Js",
+    icon: "platforms/nodejs",
+    url: "https://nodejs.org/",
   },
   {
     title: "Expressjs",
@@ -98,15 +98,15 @@ const Backend: Array<CompatibilityItem> = [
 
 <ContentSection title="Technologies" id="compatibility">
   <CompatibilityList
+    items={Backend}
+    title="Backend"
+    url="https://docs.astro.build/guides/deploy/"
+  />
+  <CompatibilityList
     items={frameworks}
     title="Frontend"
     url="https://docs.astro.build/core-concepts/framework-components/"
   />
-  <CompatibilityList
-  items={Backend}
-  title="Backend"
-  url="https://docs.astro.build/guides/deploy/"
-/>
   <CompatibilityList
     items={platforms}
     title="Platforms"

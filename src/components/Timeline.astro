@@ -6,7 +6,14 @@ const experienceItems: Array<TimelineItem> = [
   {
     title: "Backend Intern",
     date: "Feb 2026 - Present",
-    description: "Backend intern at Blueleaf Technologies, Calicut. Working with Python and Django REST Framework to design REST APIs, handle data models, permissions, and core backend logic for products.",
+    description: [
+      "Backend intern at Blueleaf Technologies, Calicut.",
+      "Designing and building REST APIs using Python and Django REST Framework.",
+      "Handling data models, serializers, and database schema design with Django ORM.",
+      "Implementing authentication, permissions, and role-based access control.",
+      "Contributing to core backend logic and business rules for production products.",
+      "Collaborating with the team on code reviews, debugging, and feature planning.",
+    ],
   },
 ];
 
@@ -43,7 +50,15 @@ const educationItems: Array<TimelineItem> = [
               </div>
 
               <h3 class="timeline-title gradient-text2">{item.title}</h3>
-              <p class="timeline-body text-default">{item.description}</p>
+              {Array.isArray(item.description) ? (
+                <ul class="timeline-body text-default timeline-list-desc">
+                  {item.description.map((point) => (
+                    <li>{point}</li>
+                  ))}
+                </ul>
+              ) : (
+                <p class="timeline-body text-default">{item.description}</p>
+              )}
             </article>
           </li>
         ))}
@@ -67,7 +82,15 @@ const educationItems: Array<TimelineItem> = [
               </div>
 
               <h3 class="timeline-title gradient-text2">{item.title}</h3>
-              <p class="timeline-body text-default">{item.description}</p>
+              {Array.isArray(item.description) ? (
+                <ul class="timeline-body text-default timeline-list-desc">
+                  {item.description.map((point) => (
+                    <li>{point}</li>
+                  ))}
+                </ul>
+              ) : (
+                <p class="timeline-body text-default">{item.description}</p>
+              )}
             </article>
           </li>
         ))}
@@ -222,6 +245,14 @@ const educationItems: Array<TimelineItem> = [
 
   .timeline-body {
     font-size: 1rem;
+  }
+
+  .timeline-list-desc {
+    list-style: disc;
+    padding-left: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.35rem;
   }
 
   @keyframes railShimmer {

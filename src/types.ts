@@ -24,5 +24,5 @@ export interface NavItem {
 export interface TimelineItem {
   title: string;
   date: string;
-  description: string;
+  description: string | string[];
 }

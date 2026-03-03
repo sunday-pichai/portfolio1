@@ -16,13 +16,26 @@ const sizes = "(min-width: 640px) 42vw, 67vw";
   </div>
   <div class="relative grid h-full place-items-center sm:grid-cols-1">
     <h2 class="flex flex-col items-center gap-2 self-center sm:gap-4 sm:self-auto sm:justify-self-center">
-      <div class="gradient-text3 text-center font-extrabold tracking-tighter text-6xl md:text-8xl">
+      <div class="gradient-text3 text-center font-extrabold tracking-tighter text-6xl md:text-8xl splash-fade" style="animation-delay: 0ms;">
         Kamalesh R.
       </div>
-      <div class="gradient-text3 text-center font-black tracking-tighter text-5xl md:text-8x1">
-        CS<br/>
+      <div class="text-center text-base sm:text-lg font-mono tracking-widest text-slate-400 uppercase mt-1 splash-fade" style="animation-delay: 180ms;">
+        <span id="typewriter-text"></span><span class="cursor-blink">_</span>
+      </div>
+      <div class="text-center text-sm font-mono text-slate-500 mt-1 tracking-widest">
+        <span class="stack-word" id="word-0">APIs</span>
+        <span class="stack-dot" id="dot-0"> · </span>
+        <span class="stack-word" id="word-1">Django</span>
+        <span class="stack-dot" id="dot-1"> · </span>
+        <span class="stack-word" id="word-2">Python</span>
       </div>
     </h2>
+  </div>
+
+  <div id="scroll-hint" class="scroll-hint" aria-hidden="true">
+    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="6 9 12 15 18 9"/>
+    </svg>
   </div>
 </section>
 
@@ -33,6 +46,48 @@ const sizes = "(min-width: 640px) 42vw, 67vw";
     }
   </style>
 </noscript>
+
+<script>
+  const el = document.getElementById("typewriter-text");
+  const text = "Backend Engineer";
+  const startDelay = 600;
+  const charDelay = 72;
+
+  if (el && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    let i = 0;
+    setTimeout(() => {
+      const interval = setInterval(() => {
+        el.textContent = text.slice(0, ++i);
+        if (i >= text.length) {
+          clearInterval(interval);
+          // Fade in words + dots one by one after typewriter
+          ["word-0", "dot-0", "word-1", "dot-1", "word-2"].forEach((id, idx) => {
+            setTimeout(() => {
+              document.getElementById(id)?.classList.add("stack-visible");
+            }, idx * 130);
+          });
+        }
+      }, charDelay);
+    }, startDelay);
+  } else if (el) {
+    el.textContent = text;
+    // Show all words immediately if reduced motion
+    ["word-0", "dot-0", "word-1", "dot-1", "word-2"].forEach((id) => {
+      document.getElementById(id)?.classList.add("stack-visible");
+    });
+  }
+
+  // Fade out scroll hint on first scroll
+  const hint = document.getElementById("scroll-hint");
+  if (hint) {
+    const hide = () => {
+      hint.style.opacity = "0";
+      hint.style.pointerEvents = "none";
+      window.removeEventListener("scroll", hide);
+    };
+    window.addEventListener("scroll", hide, { passive: true });
+  }
+</script>
 
 <style>
   @keyframes float {
@@ -45,8 +100,75 @@ const sizes = "(min-width: 640px) 42vw, 67vw";
     }
   }
 
+  @keyframes splashFadeUp {
+    from {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; }
+    50%       { opacity: 0; }
+  }
+
+  .splash-fade {
+    opacity: 0;
+    animation: splashFadeUp 0.65s ease forwards;
+  }
+
+  .cursor-blink {
+    display: inline-block;
+    animation: blink 1.1s step-start infinite;
+    color: var(--color-primary, #22d3ee);
+    font-weight: 400;
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--color-primary, #22d3ee);
+    opacity: 0;
+    animation: splashFadeUp 0.6s ease 1.4s forwards, scrollBounce 1.6s ease-in-out 2s infinite;
+    transition: opacity 0.4s ease;
+  }
+
+  @keyframes scrollBounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50%       { transform: translateX(-50%) translateY(7px); }
+  }
+
+  .tech-pills,
+  .tech-pill,
+  .tech-pill.pill-visible,
+  .tech-pill:hover { display: none; }
+
+  .stack-word,
+  .stack-dot {
+    opacity: 0;
+    transition: opacity 0.45s ease;
+  }
+
+  .stack-word.stack-visible,
+  .stack-dot.stack-visible {
+    opacity: 1;
+  }
 
   @media (prefers-reduced-motion: reduce) {
+    .splash-fade {
+      animation: none;
+      opacity: 1;
+    }
+
+    .cursor-blink {
+      animation: none;
+    }
 
     :global(#starfield) {
       @apply hidden;
