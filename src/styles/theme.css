@@ -1,31 +1,31 @@
 [data-theme="light"] {
-  --color-primary: #6D28D9; /* Deep enterprise purple */
-  --color-secondary: #6B7280; /* Neutral gray */
-  --color-text: #111827; /* Near-black text */
-  --color-text-offset: #6B7280;
-  --color-background: #F8F7FB; /* Light lavender-gray */
-  --color-background-offset: #EDE9FE;
-  --color-border: rgba(109, 40, 217, 0.12);
+  --color-primary: #0A0A0A;
+  --color-secondary: #555555;
+  --color-text: #0A0A0A;
+  --color-text-offset: #666666;
+  --color-background: #FAFAFA;
+  --color-background-offset: #F0F0F0;
+  --color-border: rgba(0, 0, 0, 0.12);
 
-  --color-timeline: #6D28D9;
-  --color-timeline-end: #8B5CF6;
-  --color-timeline-dot: #A78BFA;
-  --color-timeline-border: rgba(109, 40, 217, 0.25);
-  --color-timeline-bg: #F1EEFC;
+  --color-timeline: #0A0A0A;
+  --color-timeline-end: #333333;
+  --color-timeline-dot: #555555;
+  --color-timeline-border: rgba(0, 0, 0, 0.2);
+  --color-timeline-bg: #F0F0F0;
 }
 
 [data-theme="dark"] {
-  --color-primary: #8B5CF6; /* Render-style purple */
-  --color-secondary: #9CA3AF;
-  --color-text: #F9FAFB;
-  --color-text-offset: #D1D5DB;
-  --color-background: #0B0A12; /* Purple-black */
-  --color-background-offset: #151326;
-  --color-border: rgba(139, 92, 246, 0.18);
+  --color-primary: #EDEDED;
+  --color-secondary: #888888;
+  --color-text: #EDEDED;
+  --color-text-offset: #888888;
+  --color-background: #0A0A0A;
+  --color-background-offset: #111111;
+  --color-border: rgba(255, 255, 255, 0.1);
 
-  --color-timeline: #8B5CF6;
-  --color-timeline-end: #A78BFA;
-  --color-timeline-dot: #C4B5FD;
-  --color-timeline-border: rgba(139, 92, 246, 0.3);
-  --color-timeline-bg: #151326;
+  --color-timeline: #EDEDED;
+  --color-timeline-end: #AAAAAA;
+  --color-timeline-dot: #CCCCCC;
+  --color-timeline-border: rgba(255, 255, 255, 0.15);
+  --color-timeline-bg: #111111;
 }

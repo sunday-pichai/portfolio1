@@ -183,22 +183,21 @@ const educationItems: Array<TimelineItem> = [
     position: absolute;
     left: 1.25rem;
     top: 0.75rem;
-    width: 14px;
-    height: 14px;
-    transform: translateX(-50%);
-    border-radius: 9999px;
+    width: 10px;
+    height: 10px;
+    transform: translateX(-50%) rotate(45deg);
+    border-radius: 0;
     background: var(--color-background);
     border: 2px solid var(--color-primary);
     box-shadow:
-      0 0 0 6px rgba(34, 211, 238, 0.12),
-      0 0 18px rgba(34, 211, 238, 0.5),
-      0 0 30px rgba(99, 102, 241, 0.35);
+      0 0 0 4px rgba(255, 255, 255, 0.06),
+      0 0 10px rgba(255, 255, 255, 0.15);
   }
 
   /* === CLEAN CARD (NO BLUE GRADIENTS) === */
   .timeline-card {
     position: relative;
-    border-radius: 18px;
+    border-radius: 0;
     border: 1px solid var(--color-border);
     background: var(--color-background-offset);
     padding: 1.5rem 1.75rem 1.6rem;
@@ -227,7 +226,7 @@ const educationItems: Array<TimelineItem> = [
   .timeline-date {
     display: inline-flex;
     align-items: center;
-    border-radius: 9999px;
+    border-radius: 0;
     border: 1px solid var(--color-border);
     padding: 0.35rem 0.85rem;
     font-size: 0.7rem;

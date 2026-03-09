@@ -23,11 +23,13 @@ const sizes = "(min-width: 640px) 42vw, 67vw";
         <span id="typewriter-text"></span><span class="cursor-blink">_</span>
       </div>
       <div class="text-center text-sm font-mono text-slate-500 mt-1 tracking-widest">
-        <span class="stack-word" id="word-0">APIs</span>
+        <span class="stack-word" id="word-0">Programming</span>
         <span class="stack-dot" id="dot-0"> · </span>
-        <span class="stack-word" id="word-1">Django</span>
-        <span class="stack-dot" id="dot-1"> · </span>
-        <span class="stack-word" id="word-2">Python</span>
+        <span class="stack-word" id="word-1">Research</span>
+      </div>
+      <div class="text-center text-xs font-mono text-slate-300 mt-6 italic splash-fade max-w-xs sm:max-w-sm" style="animation-delay: 900ms;">
+        "It is by logic that we prove, but by intuition that we discover."
+        <span class="block mt-1 not-italic text-slate-400">— Henri Poincaré</span>
       </div>
     </h2>
   </div>
@@ -49,7 +51,7 @@ const sizes = "(min-width: 640px) 42vw, 67vw";
 
 <script>
   const el = document.getElementById("typewriter-text");
-  const text = "Backend Engineer";
+  const text = window.innerWidth < 640 ? "CSE" : "Computer Science & Engineering";
   const startDelay = 600;
   const charDelay = 72;
 
@@ -61,7 +63,7 @@ const sizes = "(min-width: 640px) 42vw, 67vw";
         if (i >= text.length) {
           clearInterval(interval);
           // Fade in words + dots one by one after typewriter
-          ["word-0", "dot-0", "word-1", "dot-1", "word-2"].forEach((id, idx) => {
+          ["word-0", "dot-0", "word-1"].forEach((id, idx) => {
             setTimeout(() => {
               document.getElementById(id)?.classList.add("stack-visible");
             }, idx * 130);
@@ -72,7 +74,7 @@ const sizes = "(min-width: 640px) 42vw, 67vw";
   } else if (el) {
     el.textContent = text;
     // Show all words immediately if reduced motion
-    ["word-0", "dot-0", "word-1", "dot-1", "word-2"].forEach((id) => {
+    ["word-0", "dot-0", "word-1"].forEach((id) => {
       document.getElementById(id)?.classList.add("stack-visible");
     });
   }

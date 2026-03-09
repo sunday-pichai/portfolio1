@@ -22,7 +22,7 @@ const navItems: Array<NavItem> = [
           {
             navItems.map(({ title, url }) => (
               <li>
-                <a class="text-sm" href={url}>
+                <a class="text-sm border-b border-transparent hover:border-current pb-0.5 transition-colors duration-150" href={url}>
                   {title}
                 </a>
               </li>
