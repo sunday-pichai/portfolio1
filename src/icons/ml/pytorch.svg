@@ -1,7 +1,0 @@
-<svg viewBox="0 0 190 190" xmlns="http://www.w3.org/2000/svg">
-  <path
-    d="M95 25c-30 30-45 52-45 80 0 28 22 50 50 50s50-22 50-50c0-28-15-50-55-80zm0 110c-17 0-30-13-30-30 0-16 9-30 30-50 21 20 30 34 30 50 0 17-13 30-30 30z"
-    fill="currentColor"
-  />
-  <circle cx="118" cy="72" r="6" fill="currentColor"/>
-</svg>

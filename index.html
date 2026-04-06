@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Kamalesh R</title>
+  <meta property="og:title" content="Kamalesh R"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:description" content="I CODE /"/>
+  <meta property="og:image" content="share-square.png"/>
+  <meta property="og:image:type" content="image/png"/>
+  <meta property="og:image:width" content="512"/>
+  <meta property="og:image:height" content="512"/>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg"/>
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png"/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;700&family=Caveat:wght@700&display=swap" rel="stylesheet"/>
+
+  <style>
+    :root {
+      --bg: #ffffff;
+      --ink: #000000;
+      --muted: rgba(0,0,0,0.48);
+      --chip: #f2f0eb;
+      --chip-hover: #e7e2d8;
+      --soft-chip: #f3f1ec;
+      --soft-ink: rgba(0,0,0,0.62);
+      --accent: #000;
+    }
+
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      width: 100%;
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: 'Cormorant Garamond', Georgia, serif;
+      font-size: clamp(23px, 2.8vw, 32px);
+      line-height: 1.58;
+      padding: clamp(2.5rem, 7vw, 5rem) clamp(2rem, 8vw, 6rem);
+      max-width: 1080px;
+      min-height: 100vh;
+      cursor: default;
+      text-wrap: pretty;
+      overflow-x: hidden;
+      -webkit-text-size-adjust: 100%;
+    }
+    /* ── STATUS BAR ──────────────────────────── */
+
+    /* ── MAIN PARAGRAPH ─────────────────────── */
+    #para { display: inline; }
+    #para, #para * { max-width: 100%; }
+
+    /* ── TAP WORDS ──────────────────────────── */
+    .tap {
+      background: var(--chip);
+      border-radius: 7px;
+      padding: 0.02em 0.2em 0.05em;
+      cursor: pointer;
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      letter-spacing: -0.04em;
+      display: inline;
+      transition: background 0.18s, transform 0.18s;
+      position: relative;
+      white-space: nowrap;
+      user-select: none;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+      touch-action: manipulation;
+    }
+    .tap:hover { background: var(--chip-hover); transform: translateY(-1px); }
+    .tap:active { transform: translateY(0); }
+    .tap.used {
+      background: transparent;
+      cursor: default;
+      pointer-events: none;
+      transform: none;
+    }
+    /* ripple on tap */
+    .tap::after {
+      content:'';
+      position: absolute;
+      inset: 0;
+      border-radius: 4px;
+      background: rgba(0,0,0,0.08);
+      opacity: 0;
+      transition: opacity 0.15s;
+    }
+    .tap:active::after { opacity: 1; }
+
+    /* ── WORD-BY-WORD REVEAL ─────────────────── */
+    .w {
+      display: inline;
+      opacity: 0;
+      filter: blur(3px);
+      transform: translateY(4px);
+      animation: wordIn 0.28s ease forwards;
+    }
+    @keyframes wordIn {
+      to { opacity:1; filter:blur(0); transform:translateY(0); }
+    }
+
+    /* ── BADGES ─────────────────────────────── */
+    .badge {
+      display: inline-block;
+      vertical-align: middle;
+      position: relative;
+      top: -0.04em;
+      margin: 0 0.04em;
+    }
+    /* spinning gear */
+    .gear-inner { transform-origin: 14px 14px; animation: spin 6s linear infinite; }
+    .gear-inner:hover { animation-duration: 0.8s; }
+    /* spiral pulse */
+    .spiral-g { transform-origin: 13px 13px; animation: spinSlow 12s linear infinite; }
+    /* sunburst rotate */
+    .sun-g { transform-origin: 14px 14px; animation: spinSlow 20s linear infinite; }
+    /* smiley wobble */
+    .smiley-g { transform-origin: 14px 14px; animation: wobble 3s ease-in-out infinite; }
+    /* server blink */
+    .server-blink { animation: serverBlink 1.8s step-end infinite; }
+    /* wave */
+    .wave-g { animation: wave 2.5s ease-in-out infinite; transform-origin: 9px 16px; }
+    .seal-g { transform-origin: 14px 14px; animation: spin 12s linear infinite; }
+    .orbit-g { transform-origin: 14px 14px; animation: orbitSpin 12s linear infinite; }
+    .cap-g { animation: capFloat 4.5s ease-in-out infinite; transform-origin: 14px 14px; }
+    .pin-g { animation: pinBounce 3.8s ease-in-out infinite; transform-origin: 11px 14px; }
+
+    @keyframes spin     { to { transform: rotate(360deg); } }
+    @keyframes spinSlow { to { transform: rotate(360deg); } }
+    @keyframes wobble {
+      0%,100% { transform: rotate(0deg); }
+      20%     { transform: rotate(-6deg); }
+      40%     { transform: rotate(6deg); }
+      60%     { transform: rotate(-3deg); }
+      80%     { transform: rotate(3deg); }
+    }
+    @keyframes serverBlink {
+      0%,49% { opacity:1; }
+      50%,100%{ opacity:0.2; }
+    }
+    @keyframes wave {
+      0%,100% { transform: rotate(0deg); }
+      25%     { transform: rotate(-20deg); }
+      75%     { transform: rotate(20deg); }
+    }
+    @keyframes orbitSpin {
+      to { transform: rotate(360deg); }
+    }
+    @keyframes capFloat {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-1.5px); }
+    }
+    @keyframes pinBounce {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-1px); }
+    }
+    .soft-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3em;
+      margin: 0 0.14em;
+      padding: 0.06em 0.34em 0.1em;
+      border-radius: 8px;
+      background: var(--soft-chip);
+      color: var(--soft-ink);
+      line-height: 1;
+      white-space: nowrap;
+      vertical-align: 0.06em;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.76em;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+      box-decoration-break: clone;
+      -webkit-box-decoration-break: clone;
+      max-width: 100%;
+    }
+    .soft-chip .badge {
+      width: 0.95em;
+      height: 0.95em;
+      margin: 0;
+      top: 0;
+      flex: 0 0 auto;
+    }
+    .soft-chip--muted {
+      color: var(--soft-ink);
+    }
+    .soft-chip--drift {
+      animation: chipDrift 7s ease-in-out infinite;
+    }
+    .pill {
+      display: inline;
+      color: inherit;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 1em;
+      font-weight: 700;
+      letter-spacing: -0.03em;
+    }
+    strong {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      letter-spacing: -0.045em;
+    }
+    .muted-meta {
+      color: var(--muted);
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 0.82em;
+      font-weight: 500;
+      letter-spacing: -0.02em;
+    }
+    @keyframes chipDrift {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-1px); }
+    }
+
+    /* script font */
+    .script {
+      font-family: 'Caveat', cursive;
+      font-size: 1em;
+      font-weight: 700;
+      color: rgba(0,0,0,0.78);
+    }
+
+    /* links */
+    a { color: currentColor; font-weight: 700; text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    .soft-chip a {
+      overflow-wrap: anywhere;
+      word-break: break-word;
+    }
+
+    /* ── BOTTOM BAR ──────────────────────────── */
+
+    /* ── CURSOR ──────────────────────────────── */
+    #cursor {
+      display: inline-block;
+      width: 2px;
+      height: 0.9em;
+      background: #000;
+      vertical-align: middle;
+      margin-left: 2px;
+      animation: blink 1s step-end infinite;
+      position: relative;
+      top: -1px;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+    /* ── MOBILE ──────────────────────────────── */
+    @media (hover:none) {
+      .tap:hover {
+        background: var(--chip);
+        transform: none;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation: none !important;
+        transition: none !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    @media (max-width:720px) {
+      body {
+        font-size: clamp(20px, 6vw, 27px);
+        line-height: 1.48;
+        padding: 1.6rem 1.15rem 2.5rem;
+      }
+
+      .soft-chip {
+        gap: 0.24em;
+        padding: 0.12em 0.36em 0.16em;
+        vertical-align: baseline;
+      }
+    }
+
+    @media (max-width:520px) {
+      body {
+        font-size: clamp(18px, 7vw, 23px);
+        line-height: 1.42;
+        padding: 1.2rem 0.95rem 2rem;
+      }
+
+      .tap {
+        white-space: normal;
+        line-height: 1.1;
+      }
+
+      .soft-chip {
+        gap: 0.22em;
+        font-size: 0.72em;
+        white-space: normal;
+        flex-wrap: wrap;
+      }
+
+      #cursor { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- MAIN PARA -->
+<div><span id="para"></span><span id="cursor"></span></div>
+
+<script>
+/* ════════════════════════════════════════════
+   BADGES — animated SVGs
+═══════════════════════════════════════════ */
+const B = {
+  gear: ()=>`<svg class="badge" width="28" height="28" viewBox="0 0 28 28" fill="none">
+    <g class="gear-inner">
+      ${Array.from({length:8},(_,i)=>{
+        const a=i*Math.PI*2/8,cx=14,cy=14;
+        const x=(cx+11*Math.cos(a)).toFixed(1),y=(cy+11*Math.sin(a)).toFixed(1);
+        return `<rect x="${(+x-2.2).toFixed(1)}" y="${(+y-2.2).toFixed(1)}" width="4.4" height="4.4" rx="1" fill="#000" transform="rotate(${(i*45).toFixed(0)} ${x} ${y})"/>`;
+      }).join('')}
+      <circle cx="14" cy="14" r="5.5" stroke="#000" stroke-width="1.5" fill="#fff"/>
+      <circle cx="14" cy="14" r="2" fill="#000"/>
+    </g>
+  </svg>`,
+
+  spiral: ()=>`<svg class="badge" width="26" height="26" viewBox="0 0 26 26" fill="none">
+    <g class="spiral-g">
+      <circle cx="13" cy="13" r="12" stroke="#000" stroke-width="1.4"/>
+      <path d="M13,13 m0,-7 a7,7 0 1,1 -0.01,0" stroke="#000" stroke-width="1.4" fill="none"/>
+      <path d="M13,13 m0,-3.8 a3.8,3.8 0 1,1 -0.01,0" stroke="#000" stroke-width="1.4" fill="none"/>
+      <circle cx="13" cy="13" r="1.4" fill="#000"/>
+    </g>
+  </svg>`,
+
+  sun: ()=>`<svg class="badge" width="28" height="28" viewBox="0 0 28 28" fill="none">
+    <g class="sun-g">
+      ${Array.from({length:12},(_,i)=>{
+        const a=i*Math.PI*2/12,cx=14,cy=14;
+        return `<line x1="${(cx+8*Math.cos(a)).toFixed(1)}" y1="${(cy+8*Math.sin(a)).toFixed(1)}" x2="${(cx+13*Math.cos(a)).toFixed(1)}" y2="${(cy+13*Math.sin(a)).toFixed(1)}" stroke="#000" stroke-width="1.5"/>`;
+      }).join('')}
+      <circle cx="14" cy="14" r="6" stroke="#000" stroke-width="1.5" fill="#fff"/>
+      <circle cx="14" cy="14" r="2" fill="#000"/>
+    </g>
+  </svg>`,
+
+  smiley: ()=>`<svg class="badge" width="28" height="28" viewBox="0 0 28 28" fill="none">
+    <g class="smiley-g">
+      <circle cx="14" cy="14" r="12.5" stroke="#000" stroke-width="1.4"/>
+      <circle cx="10" cy="11.5" r="1.5" fill="#000"/>
+      <circle cx="18" cy="11.5" r="1.5" fill="#000"/>
+      <path d="M9.5 17.5 Q14 22 18.5 17.5" stroke="#000" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+    </g>
+  </svg>`,
+
+  server: ()=>`<svg class="badge" width="22" height="28" viewBox="0 0 22 28" fill="none">
+    <rect x="1" y="1" width="20" height="8" rx="2" stroke="#000" stroke-width="1.4" fill="none"/>
+    <rect x="1" y="11" width="20" height="8" rx="2" stroke="#000" stroke-width="1.4" fill="none"/>
+    <rect x="1" y="21" width="20" height="6" rx="2" stroke="#000" stroke-width="1.4" fill="none"/>
+    <circle cx="17.5" cy="5" r="1.3" fill="#3ecf4a" class="server-blink"/>
+    <circle cx="17.5" cy="15" r="1.3" fill="#3ecf4a" class="server-blink" style="animation-delay:.6s"/>
+    <circle cx="17.5" cy="24" r="1.3" fill="#3ecf4a" class="server-blink" style="animation-delay:1.2s"/>
+  </svg>`,
+
+  seal: ()=>`<svg class="badge" width="28" height="28" viewBox="0 0 28 28" fill="none" aria-hidden="true">
+    <g class="seal-g">
+      <rect x="6" y="6" width="16" height="16" fill="#000"/>
+    </g>
+  </svg>`,
+
+  db: ()=>`<svg class="badge" width="24" height="28" viewBox="0 0 24 28" fill="none">
+    <ellipse cx="12" cy="5" rx="10" ry="4" stroke="#000" stroke-width="1.4" fill="none"/>
+    <path d="M2 5 v7 Q2 16 12 16 22 16 22 12 V5" stroke="#000" stroke-width="1.4" fill="none"/>
+    <path d="M2 12 v7 Q2 23 12 23 22 23 22 19 V12" stroke="#000" stroke-width="1.4" fill="none"/>
+    <circle cx="17" cy="9" r="1.2" fill="#000"/>
+    <circle cx="17" cy="16" r="1.2" fill="#000"/>
+  </svg>`,
+
+  pin: ()=>`<svg class="badge" width="22" height="28" viewBox="0 0 22 28" fill="none">
+    <g class="pin-g">
+      <path d="M11 25 C11 25 4 16.8 4 10.5 A7 7 0 0 1 18 10.5 C18 16.8 11 25 11 25 Z" stroke="#000" stroke-width="1.4" fill="none"/>
+      <circle cx="11" cy="10.5" r="2.6" fill="#000"/>
+    </g>
+  </svg>`,
+
+  cap: ()=>`<svg class="badge" width="28" height="28" viewBox="0 0 28 28" fill="none">
+    <g class="cap-g">
+      <path d="M3 10.5 L14 5 L25 10.5 L14 16 Z" stroke="#000" stroke-width="1.4" fill="none" stroke-linejoin="round"/>
+      <path d="M8 13.2 V17.4 C8 18.9 10.8 20.4 14 20.4 C17.2 20.4 20 18.9 20 17.4 V13.2" stroke="#000" stroke-width="1.4" fill="none" stroke-linecap="round"/>
+      <path d="M25 10.5 V17.5" stroke="#000" stroke-width="1.4" stroke-linecap="round"/>
+      <circle cx="25" cy="19.8" r="1.4" fill="#000"/>
+    </g>
+  </svg>`,
+
+  orbit: ()=>`<svg class="badge" width="28" height="28" viewBox="0 0 28 28" fill="none">
+    <g class="orbit-g">
+      <circle cx="14" cy="14" r="2.1" fill="#000"/>
+      <ellipse cx="14" cy="14" rx="9.6" ry="4.8" stroke="#000" stroke-width="1.3"/>
+      <ellipse cx="14" cy="14" rx="9.6" ry="4.8" stroke="#000" stroke-width="1.3" transform="rotate(60 14 14)"/>
+      <ellipse cx="14" cy="14" rx="9.6" ry="4.8" stroke="#000" stroke-width="1.3" transform="rotate(120 14 14)"/>
+      <circle cx="22.8" cy="14.6" r="1.2" fill="#000"/>
+    </g>
+  </svg>`,
+
+  lightning: ()=>`<svg class="badge" width="18" height="28" viewBox="0 0 18 28" fill="none">
+    <path d="M11 2 L3 16 H9 L7 26 L15 12 H9 Z" stroke="#000" stroke-width="1.4" fill="#000"/>
+  </svg>`,
+
+  plug: ()=>`<svg class="badge" width="28" height="24" viewBox="0 0 28 24" fill="none">
+    <path d="M9 5v5M13 5v5M7 10h8v3.2c0 2-1.5 3.7-3.5 4v2.3h4.2c2.9 0 5.3-2.4 5.3-5.3V14" stroke="#000" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="22" cy="14" r="2.2" fill="#000"/>
+  </svg>`,
+
+  github: ()=>`<svg class="badge" width="28" height="24" viewBox="0 0 28 24" fill="none">
+    <path d="M14 3.2c-5.2 0-9.4 4-9.4 8.9 0 3.9 2.7 7.2 6.5 8.4.5.1.7-.2.7-.5v-1.9c-2.7.6-3.3-1.1-3.3-1.1-.4-1-.9-1.3-.9-1.3-.8-.5.1-.5.1-.5.9.1 1.4.8 1.4.8.8 1.3 2.1.9 2.6.7.1-.5.3-.9.6-1.1-2.2-.2-4.5-1-4.5-4.4 0-1 .4-1.9 1-2.5-.1-.2-.5-1.2.1-2.5 0 0 .8-.2 2.6 1 .8-.2 1.7-.3 2.5-.3s1.7.1 2.5.3c1.8-1.2 2.6-1 2.6-1 .6 1.3.2 2.3.1 2.5.7.6 1 1.5 1 2.5 0 3.4-2.3 4.1-4.5 4.4.4.3.7.9.7 1.8v2.6c0 .3.2.6.7.5 3.8-1.2 6.5-4.5 6.5-8.4 0-4.9-4.2-8.9-9.4-8.9Z" fill="#000"/>
+  </svg>`,
+
+  email: ()=>`<svg class="badge" width="34" height="24" viewBox="0 0 34 24" fill="none">
+    <circle cx="9.5" cy="12" r="7.5" stroke="#000" stroke-width="1.4" fill="none"/>
+    <circle cx="9.5" cy="12" r="3" stroke="#000" stroke-width="1.4" fill="none"/>
+    <line x1="17" y1="12" x2="12.5" y2="12" stroke="#000" stroke-width="1.4"/>
+    <rect x="19" y="4" width="14" height="16" rx="2" stroke="#000" stroke-width="1.4" fill="none"/>
+    <polyline points="19,4 26,13 33,4" stroke="#000" stroke-width="1.4" fill="none"/>
+  </svg>`,
+};
+
+/* ════════════════════════════════════════════
+   CONTENT TREE
+   Each node: string (HTML) or {tap, id, expand:[...nodes]}
+═══════════════════════════════════════════ */
+const tree = [
+  `Hey y'all, I'm <strong>Kamalesh R</strong>. `,
+  `${B.seal()} `,
+  `I'm a `,
+  { tap:'backend engineer', id:'be', expand:[
+    `${B.gear()} currently `,
+    { tap:'interning', id:'int', expand:[
+      `at <strong>Blueleaf Technologies</strong> <span class="soft-chip soft-chip--muted">${B.server()} ${B.pin()} Calicut</span>, where I build `,
+    ]},
+    `scalable `,
+    { tap:'REST APIs', id:'api', expand:[
+      ` that power <span class="soft-chip soft-chip--drift">${B.spiral()} ${B.db()} ${B.lightning()} reliable systems</span>, while also handling table design and <span class="soft-chip soft-chip--muted">backend integrations ${B.plug()}</span>, `,
+      { tap:'Python & Django', id:'django', expand:[
+        ` Python & Django for schema design, migrations, query optimisation, and code review. `,
+      ]},
+    ]},
+  ]},
+  ` I'm also a `,
+  { tap:'CS student', id:'cs', expand:[
+    `${B.sun()} pursuing a B.E. in Computer Science at <strong>JCT College of Engineering</strong>, affiliated with <strong>Anna University</strong>. `,
+  ]},
+  ` I'm based in <strong>Kerala</strong> <span class="script">India.</span> Right now, I'm `,
+  { tap:'building', id:'build', expand:[
+    `a <a href="https://sunday-pichai.github.io/multi-agent-system/" target="_blank"><strong>Multi-Agent System</strong></a> `,
+    { tap:'project', id:'robots', expand:[
+      `where I worked on <span class="soft-chip soft-chip--drift">${B.orbit()} <span class="pill">symmetry reduction</span></span> and safer multi-agent planning. `,
+    ]},
+  ]},
+  `, while also `,
+  { tap:'open to work', id:'hire', expand:[
+    ` ${B.smiley()} for backend and systems roles. `,
+  ]},
+  `. Reach me by `,
+  { tap:'email', id:'em', expand:[
+    `<span class="soft-chip soft-chip--muted">${B.email()} <a href="mailto:kamaleshhrkrishnan@gmail.com">kamaleshhrkrishnan@gmail.com</a></span> or <span class="soft-chip soft-chip--muted">${B.github()} <a href="https://github.com/sunday-pichai" target="_blank">GitHub</a></span>.`,
+  ]},
+];
+
+/* ════════════════════════════════════════════
+   WORD-BY-WORD REVEAL
+═══════════════════════════════════════════ */
+function tokenise(html) {
+  // Split on spaces but keep tags intact
+  const div = document.createElement('div');
+  div.innerHTML = html;
+  const tokens = [];
+  div.childNodes.forEach(n => {
+    if (n.nodeType === Node.TEXT_NODE) {
+      n.textContent.split(/(\s+)/).filter(Boolean).forEach(w => tokens.push({type:'text',v:w}));
+    } else {
+      tokens.push({type:'node', v:n.cloneNode(true)});
+    }
+  });
+  return tokens;
+}
+
+function revealWords(html, container, baseDelay=0) {
+  const tokens = tokenise(html);
+  let d = baseDelay;
+  tokens.forEach(tok => {
+    const wrap = document.createElement('span');
+    wrap.className = 'w';
+    wrap.style.animationDelay = d + 'ms';
+    if (tok.type === 'text') {
+      wrap.textContent = tok.v;
+    } else {
+      wrap.appendChild(tok.v);
+    }
+    container.appendChild(wrap);
+    // only delay non-whitespace
+    if (tok.type === 'text' && tok.v.trim()) d += 55;
+  });
+  return d;
+}
+
+/* ════════════════════════════════════════════
+   RENDERER
+═══════════════════════════════════════════ */
+function render(items, container, delay=0) {
+  items.forEach(item => {
+    if (typeof item === 'string') {
+      revealWords(item, container, delay);
+    } else {
+      // Tap button — no word-by-word, just appear with main delay
+      const btn = document.createElement('span');
+      btn.className = 'tap w';
+      btn.style.animationDelay = delay + 'ms';
+      btn.textContent = item.tap;
+
+      btn.addEventListener('click', function() {
+        if (btn.classList.contains('used')) return;
+        btn.classList.add('used');
+
+        // Insert expansion after btn, word by word
+        const frag = document.createElement('span');
+        let d = 0;
+        item.expand.forEach(child => {
+          if (typeof child === 'string') {
+            d = revealWords(child, frag, d) + 30;
+          } else {
+            // nested tap — also word-by-word but rendered as tap
+            const innerWrap = document.createElement('span');
+            innerWrap.className = 'w';
+            innerWrap.style.animationDelay = d + 'ms';
+            d += 80;
+            const innerBtn = document.createElement('span');
+            innerBtn.className = 'tap';
+            innerBtn.textContent = child.tap;
+            innerBtn.addEventListener('click', function() {
+              if (innerBtn.classList.contains('used')) return;
+              innerBtn.classList.add('used');
+              const f2 = document.createElement('span');
+              let d2 = 0;
+              child.expand.forEach(c2 => {
+                if (typeof c2 === 'string') d2 = revealWords(c2, f2, d2) + 30;
+              });
+              innerBtn.insertAdjacentElement('afterend', f2);
+            }, {once:true});
+            innerWrap.appendChild(innerBtn);
+            frag.appendChild(innerWrap);
+          }
+        });
+        btn.insertAdjacentElement('afterend', frag);
+      }, {once:true});
+
+      container.appendChild(btn);
+      delay += 80;
+    }
+  });
+}
+
+render(tree, document.getElementById('para'), 200);
+
+/* ════════════════════════════════════════════
+   GEAR HOVER SPEED-UP
+═══════════════════════════════════════════ */
+document.addEventListener('mouseover', e => {
+  const gear = e.target.closest('.badge')?.querySelector('.gear-inner');
+  if (gear) gear.style.animationDuration = '0.6s';
+});
+document.addEventListener('mouseout', e => {
+  const gear = e.target.closest('.badge')?.querySelector('.gear-inner');
+  if (gear) gear.style.animationDuration = '6s';
+});
+
+/* secret: konami code easter egg */
+const konami = [38,38,40,40,37,39,37,39,66,65];
+let ki = 0;
+document.addEventListener('keydown', e => {
+  if (e.keyCode === konami[ki]) { ki++; } else { ki = 0; }
+  if (ki === konami.length) {
+    ki = 0;
+    document.body.style.fontFamily = "'Space Grotesk', sans-serif";
+    document.body.style.fontSize = "14px";
+    setTimeout(()=>{
+      document.body.style.fontFamily = '';
+      document.body.style.fontSize = '';
+    }, 3000);
+  }
+});
+</script>
+</body>
+</html>
