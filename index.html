@@ -103,12 +103,16 @@
     .w {
       display: inline;
       opacity: 0;
-      filter: blur(3px);
       transform: translateY(4px);
       animation: wordIn 0.28s ease forwards;
+      will-change: opacity, transform;
     }
     @keyframes wordIn {
-      to { opacity:1; filter:blur(0); transform:translateY(0); }
+      to { opacity:1; transform:translateY(0); }
+    }
+    @keyframes wordInMobile {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     /* ── BADGES ─────────────────────────────── */
@@ -274,9 +278,16 @@
 
     @media (max-width:720px) {
       body {
-        font-size: clamp(20px, 6vw, 27px);
-        line-height: 1.48;
+        font-size: clamp(24px, 6.8vw, 30px);
+        line-height: 1.54;
         padding: 1.6rem 1.15rem 2.5rem;
+      }
+
+      .w {
+        transform: translateY(6px);
+        animation-name: wordInMobile;
+        animation-duration: 0.24s;
+        animation-timing-function: cubic-bezier(.22,1,.36,1);
       }
 
       .soft-chip {
@@ -288,9 +299,9 @@
 
     @media (max-width:520px) {
       body {
-        font-size: clamp(18px, 7vw, 23px);
-        line-height: 1.42;
-        padding: 1.2rem 0.95rem 2rem;
+        font-size: clamp(21px, 7.4vw, 25px);
+        line-height: 1.56;
+        padding: 1.3rem 1rem 2.2rem;
       }
 
       .tap {
@@ -486,6 +497,18 @@ const tree = [
   ]},
 ];
 
+const mobileLite = window.matchMedia('(max-width: 720px)').matches;
+const tapStep = mobileLite ? 96 : 104;
+const expandGap = mobileLite ? 38 : 42;
+const startDelay = mobileLite ? 180 : 240;
+
+function getWordStep(tokenValue) {
+  const len = tokenValue.trim().length;
+  const base = mobileLite ? 42 : 30;
+  const scale = mobileLite ? 7 : 6;
+  return base + Math.min(len, 12) * scale;
+}
+
 /* ════════════════════════════════════════════
    WORD-BY-WORD REVEAL
 ═══════════════════════════════════════════ */
@@ -504,21 +527,27 @@ function tokenise(html) {
   return tokens;
 }
 
+function queueInsert(parent, node, delay=0) {
+  window.setTimeout(() => {
+    parent.appendChild(node);
+  }, delay);
+}
+
 function revealWords(html, container, baseDelay=0) {
   const tokens = tokenise(html);
   let d = baseDelay;
   tokens.forEach(tok => {
     const wrap = document.createElement('span');
     wrap.className = 'w';
-    wrap.style.animationDelay = d + 'ms';
+    wrap.style.animationDelay = '0ms';
     if (tok.type === 'text') {
       wrap.textContent = tok.v;
     } else {
       wrap.appendChild(tok.v);
     }
-    container.appendChild(wrap);
+    queueInsert(container, wrap, d);
     // only delay non-whitespace
-    if (tok.type === 'text' && tok.v.trim()) d += 55;
+    if (tok.type === 'text' && tok.v.trim()) d += getWordStep(tok.v);
   });
   return d;
 }
@@ -529,12 +558,12 @@ function revealWords(html, container, baseDelay=0) {
 function render(items, container, delay=0) {
   items.forEach(item => {
     if (typeof item === 'string') {
-      revealWords(item, container, delay);
+      delay = revealWords(item, container, delay);
     } else {
       // Tap button — no word-by-word, just appear with main delay
       const btn = document.createElement('span');
       btn.className = 'tap w';
-      btn.style.animationDelay = delay + 'ms';
+      btn.style.animationDelay = '0ms';
       btn.textContent = item.tap;
 
       btn.addEventListener('click', function() {
@@ -546,13 +575,13 @@ function render(items, container, delay=0) {
         let d = 0;
         item.expand.forEach(child => {
           if (typeof child === 'string') {
-            d = revealWords(child, frag, d) + 30;
+            d = revealWords(child, frag, d) + expandGap;
           } else {
             // nested tap — also word-by-word but rendered as tap
             const innerWrap = document.createElement('span');
             innerWrap.className = 'w';
-            innerWrap.style.animationDelay = d + 'ms';
-            d += 80;
+            innerWrap.style.animationDelay = '0ms';
+            d += tapStep;
             const innerBtn = document.createElement('span');
             innerBtn.className = 'tap';
             innerBtn.textContent = child.tap;
@@ -562,24 +591,24 @@ function render(items, container, delay=0) {
               const f2 = document.createElement('span');
               let d2 = 0;
               child.expand.forEach(c2 => {
-                if (typeof c2 === 'string') d2 = revealWords(c2, f2, d2) + 30;
+                if (typeof c2 === 'string') d2 = revealWords(c2, f2, d2) + expandGap;
               });
               innerBtn.insertAdjacentElement('afterend', f2);
             }, {once:true});
             innerWrap.appendChild(innerBtn);
-            frag.appendChild(innerWrap);
+            queueInsert(frag, innerWrap, d);
           }
         });
         btn.insertAdjacentElement('afterend', frag);
       }, {once:true});
 
-      container.appendChild(btn);
-      delay += 80;
+      queueInsert(container, btn, delay);
+      delay += tapStep;
     }
   });
 }
 
-render(tree, document.getElementById('para'), 200);
+render(tree, document.getElementById('para'), startDelay);
 
 /* ════════════════════════════════════════════
    GEAR HOVER SPEED-UP
